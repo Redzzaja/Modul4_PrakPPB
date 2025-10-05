@@ -1,17 +1,37 @@
 // src/pages/DetailPage.jsx
+import { useEffect, useState } from "react";
 import { ArrowLeft, Clock, ChefHat } from "lucide-react";
 
 export default function DetailPage({ recipe, onBack }) {
+  const [isAnimatingIn, setIsAnimatingIn] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsAnimatingIn(true), 10);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleBackClick = () => {
+    setIsAnimatingOut(true);
+    setTimeout(onBack, 300); // Durasi animasi
+  };
+
   if (!recipe) {
     return null;
   }
 
+  const animationClasses = isAnimatingOut
+    ? "animate-slide-out-bottom"
+    : isAnimatingIn
+    ? "animate-slide-in-bottom"
+    : "opacity-0";
+
   return (
-    <div className="min-h-screen bg-gray-50 pb-8">
+    <div className={`min-h-screen bg-gray-50 pb-8 ${animationClasses}`}>
       <main className="max-w-4xl mx-auto">
-        <div className="p-4">
+        <div className="sticky top-0 bg-gray-50/80 backdrop-blur-sm z-10 p-4">
           <button
-            onClick={onBack}
+            onClick={handleBackClick}
             className="flex items-center text-slate-500 hover:text-slate-700 transition-colors duration-200"
           >
             <ArrowLeft size={20} className="mr-2" />

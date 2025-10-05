@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage";
 import MakananPage from "./pages/MakananPage";
 import MinumanPage from "./pages/MinumanPage";
 import ProfilePage from "./pages/ProfilePage";
-import DetailPage from "./pages/DetailPage"; // Import DetailPage
+import DetailPage from "./pages/DetailPage";
 import DesktopNavbar from "./components/navbar/DesktopNavbar";
 import MobileNavbar from "./components/navbar/MobileNavbar";
 import "./index.css";
@@ -23,7 +23,7 @@ function AppRoot() {
 
   const handleNavigation = (page) => {
     setCurrentPage(page);
-    setSelectedRecipe(null); // Kembali ke list saat ganti halaman
+    setSelectedRecipe(null);
   };
 
   const handleSelectRecipe = (recipe) => {
@@ -31,26 +31,22 @@ function AppRoot() {
   };
 
   const handleBack = () => {
-    setSelectedRecipe(null); // Kembali dari halaman detail
+    setSelectedRecipe(null);
   };
 
   const renderCurrentPage = () => {
-    // Jika ada resep yang dipilih, tampilkan halaman detail
     if (selectedRecipe) {
       return <DetailPage recipe={selectedRecipe} onBack={handleBack} />;
     }
 
-    // Jika tidak, tampilkan halaman sesuai navigasi
     switch (currentPage) {
       case "home":
-        // Kirim fungsi handleSelectRecipe sebagai prop
         return <HomePage onSelectRecipe={handleSelectRecipe} />;
       case "makanan":
-        // Kirim fungsi handleSelectRecipe sebagai prop
         return <MakananPage onSelectRecipe={handleSelectRecipe} />;
       case "minuman":
-        // Untuk minuman, kita belum pasang (fokus ke makanan dulu)
-        return <MinumanPage />;
+        // Pastikan prop ini ditambahkan
+        return <MinumanPage onSelectRecipe={handleSelectRecipe} />;
       case "profile":
         return <ProfilePage />;
       default:
@@ -64,7 +60,6 @@ function AppRoot() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Jangan tampilkan navbar jika sedang di halaman detail */}
       {!selectedRecipe && (
         <>
           <DesktopNavbar
@@ -77,9 +72,7 @@ function AppRoot() {
           />
         </>
       )}
-
       <main className="min-h-screen">{renderCurrentPage()}</main>
-
       <PWABadge />
     </div>
   );
