@@ -1,28 +1,19 @@
 // src/pages/HomePage.jsx
-
-import { ResepMakanan } from "../data/makanan";
-import { ResepMinuman } from "../data/minuman";
 import HeroSection from "../components/home/HeroSection";
-import FeaturedMakananSection from "../components/home/FeaturedMakananSection";
-import FeaturedMinumanSection from "../components/home/FeaturedMinumanSection";
 
-// Terima onSelectRecipe sebagai prop
-export default function HomePage({ onSelectRecipe }) {
-  const featuredMakanan = Object.values(ResepMakanan.resep).slice(0, 3);
-  const featuredMinuman = Object.values(ResepMinuman.resep).slice(0, 2);
+// Hapus semua import resep dan section lain
 
+export default function HomePage() {
+  // Props tidak lagi diperlukan di sini
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 pb-20 md:pb-8">
       <HeroSection />
 
-      {/* Main Content */}
+      {/* Main content dikosongkan agar fokus pada Hero Section */}
       <main className="max-w-7xl mx-auto px-4 md:px-8 space-y-12 md:space-y-16">
-        {/* Teruskan onSelectRecipe ke komponen ini */}
-        <FeaturedMakananSection
-          featuredMakanan={featuredMakanan}
-          onSelectRecipe={onSelectRecipe}
-        />
-        <FeaturedMinumanSection featuredMinuman={featuredMinuman} />
+        {/* Anda bisa menambahkan konten lain di sini jika perlu,
+            misalnya pengenalan singkat atau kategori populer.
+            Untuk saat ini, kita kosongkan. */}
       </main>
     </div>
   );
