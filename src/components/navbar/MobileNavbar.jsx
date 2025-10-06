@@ -1,13 +1,15 @@
-// src/components/MobileNavbar.jsx
-import { Home, ChefHat, Coffee, User } from 'lucide-react';
+// src/components/navbar/MobileNavbar.jsx
+import { Home, ChefHat, Heart, User } from "lucide-react";
 
 export default function MobileNavbar({ currentPage, onNavigate }) {
+  // --- PERUBAHAN DI SINI ---
   const navItems = [
-    { id: 'home', label: 'Beranda', icon: Home },
-    { id: 'makanan', label: 'Makanan', icon: ChefHat },
-    { id: 'minuman', label: 'Minuman', icon: Coffee },
-    { id: 'profile', label: 'Profile', icon: User }
+    { id: "home", label: "Beranda", icon: Home },
+    { id: "resep", label: "Resep", icon: ChefHat },
+    { id: "favorites", label: "Favorit", icon: Heart },
+    { id: "profile", label: "Profile", icon: User },
   ];
+  // -------------------------
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-1 z-50">
@@ -15,23 +17,23 @@ export default function MobileNavbar({ currentPage, onNavigate }) {
         {navItems.map((item) => {
           const IconComponent = item.icon;
           const isActive = currentPage === item.id;
-          
+
           return (
             <button
               key={item.id}
               onClick={() => onNavigate(item.id)}
               className={`flex flex-col items-center py-2 px-3 transition-colors duration-200 ${
-                isActive ? 'text-blue-600' : 'text-gray-400'
+                isActive ? "text-blue-600" : "text-gray-400"
               }`}
             >
-              <IconComponent 
-                size={20} 
-                className="mb-1"
+              <IconComponent
+                size={20}
+                className={`mb-1 ${
+                  isActive && item.id === "favorites" ? "fill-current" : ""
+                }`}
                 strokeWidth={isActive ? 2 : 1.5}
               />
-              <span className="text-xs font-medium">
-                {item.label}
-              </span>
+              <span className="text-xs font-medium">{item.label}</span>
             </button>
           );
         })}
